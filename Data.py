@@ -37,9 +37,11 @@ class Data:
     def delete_citizen(self, id):
         citizen_to_delete = self.citizens[self.find_index_for_deletion(
             self.citizens, id)]
-        self.delete_digital_certificate(
-            citizen_to_delete.digital_certificate.id)
-        for dose in citizen_to_delete.doses:
+
+        if citizen_to_delete.digital_certificate:
+            self.delete_digital_certificate(
+                citizen_to_delete.digital_certificate.id)
+        for dose in citizen_to_delete.doses_received:
             self.delete_dose(dose.id)
         for vaccination_certificate in citizen_to_delete.vaccination_certificates:
             self.delete_vaccination_certificate(vaccination_certificate.id)

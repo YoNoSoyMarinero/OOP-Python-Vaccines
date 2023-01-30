@@ -11,7 +11,6 @@ from datetime import date
 
 
 def test():
-
     citizen = Citizen("1234567890123", "John", "Doe",
                       date(2000, 3, 3), "male", "1234567890")
     medical_worker = MedicalWorker(
@@ -30,35 +29,16 @@ def test():
         "12345678", date(2000, 1, 1), citizen)
 
     data = Data()
+
+    # data.add_citizen(citizen)
+    # data.add_medical_worker(medical_worker)
+    # data.add_dose(dose)
+    # data.add_digital_certificate(citizen.digital_certificate)
+    # data.add_vaccination_certificate(vacc_cert)
+    # data.add_vaccine(vaccine)
+
     data.load_data()
-    print(data.citizens[0])
-
-
-"""data.edit_citizen(6, Citizen("1234567890987", "Jo", "Jo",
-                      date(1999, 9, 9), 'male', '1234567890')) """
-
-
-"""     print(data.citizens[0])
-    print("_______________________")
-    print(data.medical_workers[0])
-    print("_______________________")
-    print(data.doses[0])
-    print("_______________________")
-    print(data.digital_certificates[0].id)
-    print("_______________________")
-    print(data.vaccination_certificates[0])
-    print("_______________________")
-    print(data.vaccines[0].id) """
-
-
-"""
-    data.load_data()
-    data.delete_citizen(0)
-    data.delete_medical_worker(3)
-    data.delete_dose(4)
-    data.delete_vaccination_certificate(5)
-    data.delete_digital_certificate(2)
-    data.delete_vaccine(1) """
+    data.save_data()
 
 
 test()

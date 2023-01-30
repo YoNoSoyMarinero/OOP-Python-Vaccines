@@ -1,6 +1,4 @@
 from Person import Person
-from datetime import date
-from random import randint
 
 
 class Citizen(Person):
@@ -50,6 +48,12 @@ class Citizen(Person):
         for dose in self.vaccination_certificates:
             print(dose)
             print("___________________________________________________")
+
+    def add_dose(self, dose):
+        self.doses_received.append(dose)
+
+    def add_vaccination_certificate(self, vaccination_certificate):
+        self.vaccination_certificates.append(vaccination_certificate)
 
     def __init__(self, JMBG, name, surname, date_of_birth, sex, id_number) -> None:
         super().__init__(JMBG, name, surname, date_of_birth, sex)

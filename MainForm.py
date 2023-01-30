@@ -1,0 +1,32 @@
+import tkinter as tk
+import Data
+
+
+class MainForm(tk.Tk):
+
+    def __init__(self) -> None:
+        super().__init__()
+
+        self.title("App")
+        self.background_color = "gray17"
+        self.font_color = "grey83"
+        self.iconbitmap("ico.ico")
+        self.menubar = tk.Menu(self)
+        self.config(menu=self.menubar, bg=self.background_color)
+        self.exit_menu = tk.Menu(self.menubar, tearoff=False)
+        self.exit_menu.add_command(label="Exit", command=self.destroy)
+
+        self.data_menu = tk.Menu(self.menubar, tearoff=False)
+        self.data_menu.add_command(label="Citizens")
+        self.data_menu.add_command(label="Medical workers")
+        self.data_menu.add_command(label="Digital certificates")
+        self.data_menu.add_command(label="Vaccines")
+        self.data_menu.add_command(label="Vaccinations certificates")
+        self.data_menu.add_command(label="Doses")
+
+        self.menubar.add_cascade(label="File", menu=self.exit_menu)
+        self.menubar.add_cascade(label="Data", menu=self.data_menu)
+
+        self.front_frame_label = tk.Label(
+            self, text="Welcome!", background=self.background_color, fg=self.font_color, font=60)
+        self.front_frame_label.pack(padx=30, pady=30)
