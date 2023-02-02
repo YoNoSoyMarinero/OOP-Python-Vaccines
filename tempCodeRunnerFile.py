@@ -1,2 +1,1 @@
-
-app = ViewDataForm()
+self.focus_force()

@@ -53,10 +53,13 @@ class Person:
 
     @sex.setter
     def sex(self, sex):
-        self.__sex = sex
+        if (not self.sex_validation(sex)):
+            raise ValueError("Sex must be f or m!")
+        else:
+            self.__sex = sex
 
     def JMBG_validation(self, JMBG):
-        return len(JMBG) == 13
+        return len(JMBG) == 1
 
     def name_validation(self, name):
         return len(name) > 1
@@ -67,7 +70,10 @@ class Person:
     def date_of_birth_validation(self, date):
         return date < date.today()
 
-    def constructor_validation(self, JMBG, name, surname, date_of_birth):
+    def sex_validation(self, sex):
+        return sex == 'm' or sex == 'f'
+
+    def constructor_validation(self, JMBG, name, surname, date_of_birth, sex):
         if (not self.JMBG_validation(JMBG)):
             raise ValueError("JMBG was unvalid!")
         if (not self.name_validation(name)):
@@ -76,9 +82,11 @@ class Person:
             raise ValueError("Surname was unvalid!")
         if (not self.date_of_birth_validation(date_of_birth)):
             raise ValueError("Date of birth was unvalid!")
+        if (not self.sex_validation(sex)):
+            raise ValueError("Sex must be f or m!")
 
     def __init__(self, JMBG, name, surname, date_of_birth, sex) -> None:
-        self.constructor_validation(JMBG, name, surname, date_of_birth)
+        self.constructor_validation(JMBG, name, surname, date_of_birth, sex)
         self.__JMBG = JMBG
         self.__name = name
         self.__surname = surname

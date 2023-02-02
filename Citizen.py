@@ -31,7 +31,7 @@ class Citizen(Person):
         return self.__doses_received
 
     def id_number_validation(self, id_number):
-        return len(id_number) == 10
+        return len(id_number) == 1
 
     def constructor_validation_citizen(self, id_number):
         if (not self.id_number_validation(id_number)):
