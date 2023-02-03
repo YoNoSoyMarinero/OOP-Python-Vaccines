@@ -35,7 +35,7 @@ class Dose:
         if (not self.dosage_date_validation(dosage_date)):
             raise ValueError("Date was unvalid!")
         if (not self.country_validation(country)):
-            raise ValueError("Country institution was unvalid!")
+            raise ValueError("Country was unvalid!")
 
     def __init__(self, dosage_date, vaccine, medical_worker, citizen, country) -> None:
         self.constructor_validation(dosage_date, country)

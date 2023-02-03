@@ -11,22 +11,22 @@ from datetime import date
 
 
 def test():
-    citizen = Citizen("1234567890123", "John", "Doe",
-                      date(2000, 3, 3), "male", "1234567890")
-    medical_worker = MedicalWorker(
-        "1234567890122", "Jane", "Doe", date(1999, 3, 3), "female", "Leeman")
+    # citizen = Citizen("1234567890123", "John", "Doe",
+    #                   date(2000, 3, 3), "male", "1234567890")
+    # medical_worker = MedicalWorker(
+    #     "1234567890122", "Jane", "Doe", date(1999, 3, 3), "female", "Leeman")
 
-    vaccine = Vaccine("Phizer", "1234567890", "USA", date.today())
-    dose = Dose(date(2016, 3, 3), vaccine,
-                medical_worker, citizen, "Serbia")
+    # vaccine = Vaccine("Phizer", "1234567890", "USA", date.today())
+    # dose = Dose(date(2016, 3, 3), vaccine,
+    #             medical_worker, citizen, "Serbia")
 
-    vacc_cert = VaccinationCertificate("12345678", date(
-        2021, 10, 10), dose, citizen, medical_worker)
+    # vacc_cert = VaccinationCertificate("12345678", date(
+    #     2021, 10, 10), dose, citizen, medical_worker)
 
-    citizen.vaccination_certificates.append(vacc_cert)
-    citizen.doses_received.append(dose)
-    citizen.digital_certificate = DigitalCertificate(
-        "12345678", date(2000, 1, 1), citizen)
+    # citizen.vaccination_certificates.append(vacc_cert)
+    # citizen.doses_received.append(dose)
+    # citizen.digital_certificate = DigitalCertificate(
+    #     "12345678", date(2000, 1, 1), citizen)
 
     data = Data()
 

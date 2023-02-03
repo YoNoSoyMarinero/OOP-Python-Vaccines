@@ -15,6 +15,14 @@ class DigitalCertificate:
             self.__certificate_id = certificate_id
 
     @property
+    def citizen(self):
+        return self.__citizen
+
+    @citizen.setter
+    def citizen(self, citizen):
+        self.__citizen = citizen
+
+    @property
     def issuance_date(self):
         return self.__issuance_date
 
@@ -26,7 +34,7 @@ class DigitalCertificate:
             self.__issuance_date = issuance_date
 
     def certificate_id_validation(self, certificate_id):
-        return len(certificate_id) == 8
+        return len(certificate_id) == 1
 
     def issuance_date_validation(self, issuance_date):
         return issuance_date < date.today()

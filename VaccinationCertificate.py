@@ -7,6 +7,30 @@ class VaccinationCertificate:
     def issuance_date(self):
         return self.__issuance_date
 
+    @property
+    def citizen(self):
+        return self.__citizen
+
+    @citizen.setter
+    def citizen(self, citizen):
+        self.__citizen = citizen
+
+    @property
+    def medical_worker(self):
+        return self.__medical_worker
+
+    @medical_worker.setter
+    def medical_worker(self, medical_worker):
+        self.__medical_worker = medical_worker
+
+    @property
+    def dose(self):
+        return self.__dose
+
+    @dose.setter
+    def dose(self, dose):
+        self.__dose = dose
+
     @issuance_date.setter
     def issuance_date(self, issuance_date):
         if (not self.issuance_date_validation(issuance_date)):
@@ -29,7 +53,7 @@ class VaccinationCertificate:
         return issuance_date < date.today()
 
     def certificate_id_validation(self, certificate_id):
-        return len(certificate_id) == 8
+        return len(certificate_id) == 1
 
     def constructor_validation(self, certificate_id, issuance_date):
         if (not self.issuance_date_validation(issuance_date)):

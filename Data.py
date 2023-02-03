@@ -11,20 +11,20 @@ class Data:
             if (list[index].id == id):
                 return index
 
-    def check_if_JMBG_unique(self, JMBG):
-        return not JMBG in [citizen.JMBG for citizen in self.citizens]
+    def check_if_JMBG_not_unique(self, JMBG):
+        return JMBG in [citizen.JMBG for citizen in self.citizens]
 
-    def check_if_ID_unique(self, id_number):
-        return not id_number in [citizen.id_number for citizen in self.citizens]
+    def check_if_ID_not_unique(self, id_number):
+        return id_number in [citizen.id_number for citizen in self.citizens]
 
-    def check_if_serial_number_unique(self, serial_number):
-        return not serial_number in [vaccine.serial_number for vaccine in self.vaccines]
+    def check_if_serial_number_not_unique(self, serial_number):
+        return serial_number in [vaccine.serial_number for vaccine in self.vaccines]
 
-    def check_if_vaccination_certificate_id_unique(self, certificate_id):
-        return not certificate_id in [vaccination_certificate.certificate_id for vaccination_certificate in self.vaccination_certificates]
+    def check_if_vaccination_certificate_id_not_unique(self, certificate_id):
+        return certificate_id in [vaccination_certificate.certificate_id for vaccination_certificate in self.vaccination_certificates]
 
-    def check_if_digital_certificate_in_unique(self, certificate_id):
-        return not certificate_id in [digital_certificate for digital_certificate in self.digital_certificates]
+    def check_if_digital_certificate_not_unique(self, certificate_id):
+        return certificate_id in [digital_certificate for digital_certificate in self.digital_certificates]
 
     def select_citizens(self, query):
         return list(filter(lambda citizen: query.upper() in citizen.surname.upper() + " " + citizen.name.upper(), self.citizens))
@@ -48,10 +48,13 @@ class Data:
 
         self.citizens.pop(self.find_index_for_deletion(self.citizens, id))
 
-    def edit_citizen(self, id, new_citizen):
-        new_citizen.id = id
+    def edit_citizen(self, id, name, surname, sex):
         self.citizens[self.find_index_for_deletion(
-            self.citizens, id)] = new_citizen
+            self.citizens, id)].name = name
+        self.citizens[self.find_index_for_deletion(
+            self.citizens, id)].surname = surname
+        self.citizens[self.find_index_for_deletion(
+            self.citizens, id)].sex = sex
 
     def select_medical_workers(self, query):
         return list(filter(lambda medical_worker: query.upper() in medical_worker.surname.upper() + " " + medical_worker.name.upper(), self.medical_workers))
@@ -65,10 +68,15 @@ class Data:
         self.medical_workers.pop(
             self.find_index_for_deletion(self.medical_workers, id))
 
-    def edit_medical_worker(self, id, new_medical_worker):
-        new_medical_worker.id = id
+    def edit_medical_worker(self, id, name, surname, health_institution, sex):
         self.medical_workers[self.find_index_for_deletion(
-            self.medical_workers, id)] = new_medical_worker
+            self.medical_workers, id)].name = name
+        self.medical_workers[self.find_index_for_deletion(
+            self.medical_workers, id)].surname = surname
+        self.medical_workers[self.find_index_for_deletion(
+            self.medical_workers, id)].sex = sex
+        self.medical_workers[self.find_index_for_deletion(
+            self.medical_workers, id)].health_institution = health_institution
 
     def select_vaccines(self, query):
         return list(filter(lambda vaccine: query.upper() in vaccine.name.upper(), self.vaccines))
@@ -81,10 +89,13 @@ class Data:
     def delete_vaccine(self, id):
         self.vaccines.pop(self.find_index_for_deletion(self.vaccines, id))
 
-    def edit_vaccine(self, id, new_vaccine):
-        new_vaccine.id = id
-        self.doses[self.find_index_for_deletion(
-            self.doses, id)] = new_vaccine
+    def edit_vaccine(self, id, name, country, serial_number):
+        self.vaccines[self.find_index_for_deletion(
+            self.vaccines, id)].name = name
+        self.vaccines[self.find_index_for_deletion(
+            self.vaccines, id)].country = country
+        self.vaccines[self.find_index_for_deletion(
+            self.vaccines, id)].serial_number = serial_number
 
     def select_dose(self, query):
         return list(filter(lambda dose: query.upper() in dose.citizen.surname.upper() + " " + dose.citizen.name.upper() + " " + dose.vaccine.name.upper(), self.doses))
@@ -97,13 +108,18 @@ class Data:
     def delete_dose(self, id):
         self.doses.pop(self.find_index_for_deletion(self.doses, id))
 
-    def edit_dose(self, id, new_dose):
-        new_dose.id = id
+    def edit_dose(self, id, medical_worker, citizen, vaccine, country):
         self.doses[self.find_index_for_deletion(
-            self.doses, id)] = new_dose
+            self.doses, id)].medical_worker = medical_worker
+        self.doses[self.find_index_for_deletion(
+            self.doses, id)].citizen = citizen
+        self.doses[self.find_index_for_deletion(
+            self.doses, id)].vaccine = vaccine
+        self.doses[self.find_index_for_deletion(
+            self.doses, id)].country = country
 
     def select_vaccination_certificates(self, query):
-        return list(filter(lambda vacc_cert: query.upper() in vacc_cert.citizen.surname.upper() + " " + vacc_cert.citizen.surname.upper(), self.vaccination_certificates))
+        return list(filter(lambda vaccination_certificate: query.upper() in vaccination_certificate.citizen.name.upper() + " " + vaccination_certificate.citizen.surname.upper(), self.vaccination_certificates))
 
     def add_vaccination_certificate(self, vaccination_certificate):
         vaccination_certificate.id = self.global_id
@@ -114,13 +130,18 @@ class Data:
         self.vaccination_certificates.pop(
             self.find_index_for_deletion(self.vaccination_certificates, id))
 
-    def edit_vaccination_certificate(self, id, new_vaccination_certificate):
-        new_vaccination_certificate.id = id
+    def edit_vaccination_certificate(self, id, medical_worker, citizen, dose, certificate_id):
         self.vaccination_certificates[self.find_index_for_deletion(
-            self.vaccination_certificates, id)] = new_vaccination_certificate
+            self.vaccination_certificates, id)].medical_worker = medical_worker
+        self.vaccination_certificates[self.find_index_for_deletion(
+            self.vaccination_certificates, id)].citizen = citizen
+        self.vaccination_certificates[self.find_index_for_deletion(
+            self.vaccination_certificates, id)].dose = dose
+        self.vaccination_certificates[self.find_index_for_deletion(
+            self.vaccination_certificates, id)].certificate_id = certificate_id
 
     def select_digital_certificates(self, query):
-        return list(filter(lambda digital_cert: query.upper() in digital_cert.citizen.surname.upper() + " " + digital_cert.citizen.surname.upper(), self.digital_certificates))
+        return list(filter(lambda digital_cert: query.upper() in digital_cert.citizen.name.upper() + " " + digital_cert.citizen.surname.upper(), self.digital_certificates))
 
     def add_digital_certificate(self, digital_certificate):
         digital_certificate.id = self.global_id
@@ -131,10 +152,11 @@ class Data:
         self.digital_certificates.pop(
             self.find_index_for_deletion(self.digital_certificates, id))
 
-    def edit_digital_certificate(self, id, new_digital_certificate):
-        new_digital_certificate.id = id
+    def edit_digital_certificate(self, id, citizen, certificate_id):
         self.digital_certificates[self.find_index_for_deletion(
-            self.digital_certificates, id)] = new_digital_certificate
+            self.digital_certificates, id)].citizen = citizen
+        self.digital_certificates[self.find_index_for_deletion(
+            self.digital_certificates, id)].certificate_id = certificate_id
 
     def sort_data(self):
         self.citizens.sort(

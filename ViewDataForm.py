@@ -80,6 +80,10 @@ class ViewDataForm(tk.Toplevel):
             self.frame_data, text="CLEAR", bg=self.background_color, fg="medium aquamarine", font=100)
         self.clear_button.grid(row=7, column=4, pady=20, padx=5)
 
+        self.edit_button['state'] = tk.DISABLED
+        self.delete_button['state'] = tk.DISABLED
+        self.show_button['state'] = tk.DISABLED
+
         self.transient(master)
         self.focus_force()
         self.grab_set()

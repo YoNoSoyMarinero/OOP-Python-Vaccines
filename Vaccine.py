@@ -48,7 +48,7 @@ class Vaccine:
         return len(name) > 1
 
     def serial_number_validation(self, serial_number):
-        return len(serial_number) == 10
+        return len(serial_number) == 1
 
     def country_validation(self, country):
         return len(country) > 1

@@ -1,10 +1,10 @@
 from AddEditDataForm import AddEditDataForm
-from Citizen import Citizen
+from MedicalWorker import MedicalWorker
 from datetime import date
 from tkinter import messagebox
 
 
-class AddCitizenForm(AddEditDataForm):
+class AddMedicalWorkerForm(AddEditDataForm):
 
     def command_add(self):
         name = self.VarA.get()
@@ -13,13 +13,12 @@ class AddCitizenForm(AddEditDataForm):
         date_of_birth = self.VarD.get().split("/")
         date_of_birth = date(int(date_of_birth[0]), int(
             date_of_birth[1]), int(date_of_birth[2]))
-        id = self.VarE.get()
+        hospital = self.VarE.get()
         sex = self.VarF.get()
         try:
-            if (self.data.check_if_JMBG_not_unique(JMBG) or self.data.check_if_ID_not_unique(id)):
-                raise ValueError("ID or JMBG not unique!")
-            citizen = Citizen(JMBG, name, surname, date_of_birth, sex, id)
-            self.data.add_citizen(citizen)
+            medical_worker = MedicalWorker(
+                JMBG, name, surname, date_of_birth, sex, hospital)
+            self.data.add_medical_worker(medical_worker)
             self.data.save_data()
             self.cancle = False
             self.destroy()
@@ -31,9 +30,9 @@ class AddCitizenForm(AddEditDataForm):
 
         self.static_label_A['text'] = "Name: "
         self.static_label_B['text'] = "Surname: "
-        self.static_label_C['text'] = "JMBG: "
+        self.static_label_C['text'] = "JMBG "
         self.static_label_D['text'] = "Date of birth: "
-        self.static_label_E['text'] = "ID: "
+        self.static_label_E['text'] = "Hospital: "
         self.static_label_F['text'] = "Sex: "
         self.save_button['command'] = self.command_add
         self.cancle_button['command'] = self.destroy

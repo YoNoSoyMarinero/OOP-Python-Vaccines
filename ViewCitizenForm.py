@@ -1,9 +1,7 @@
 from ViewDataForm import ViewDataForm
 from AddCitizenForm import AddCitizenForm
 from EditCitizenForm import EditCitizenForm
-from Data import Data
-from Citizen import Citizen
-from datetime import datetime
+from ViewDigitalCertificate import ViewDigitalCertifiacteForm
 from tkinter import messagebox
 import tkinter as tk
 
@@ -48,6 +46,7 @@ class ViewCitizenForm(ViewDataForm):
 
             self.edit_button['state'] = tk.DISABLED
             self.delete_button['state'] = tk.DISABLED
+            self.show_button['state'] = tk.DISABLED
             return
 
         index = self.listbox.curselection()[0]
@@ -56,6 +55,7 @@ class ViewCitizenForm(ViewDataForm):
         self.fill_labels(citizen)
         self.edit_button["state"] = tk.NORMAL
         self.delete_button["state"] = tk.NORMAL
+        self.show_button['state'] = tk.NORMAL
 
     def add_citizen_command(self):
         form = AddCitizenForm(self, self.data)
@@ -103,11 +103,19 @@ class ViewCitizenForm(ViewDataForm):
         self.data.save_data()
         self.clear()
 
+    def show_button_command(self):
+        index = self.listbox.curselection()[0]
+        self.data.sort_data()
+        citizen = self.queried_citizens()[index]
+        win = ViewDigitalCertifiacteForm(
+            self, self.data, citizen.name + " " + citizen.surname)
+        win.wait_window()
+
     def __init__(self, master, data) -> None:
         super().__init__(master, data)
 
         self.add_button['command'] = self.add_citizen_command
-        self.edit_button['command'] = lambda: EditCitizenForm(self, self.data)
+        self.show_button['command'] = self.show_button_command
         self.clear_button['command'] = self.clear
         self.delete_button['command'] = self.delete_citizen_command
         self.edit_button['command'] = self.edit_citizen_command
