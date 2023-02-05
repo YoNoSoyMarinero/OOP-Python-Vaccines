@@ -38,9 +38,13 @@ class ViewDosesForm(ViewDataForm):
         self.dynamic_label_E['text'] = ""
         self.dynamic_label_F['text'] = ""
 
-    def clear(self):
+    def clear(self, disable=False):
         self.clear_labels()
         self.listbox.selection_clear(0, tk.END)
+
+        if disable:
+            self.edit_button['state'] = tk.DISABLED
+            self.delete_button['state'] = tk.DISABLED
 
     def listbox_change(self, event=None):
         if not self.listbox.curselection():
@@ -78,7 +82,7 @@ class ViewDosesForm(ViewDataForm):
         self.data.delete_dose(dose.id)
         self.fill_listbox()
         self.data.save_data()
-        self.clear()
+        self.clear(True)
 
     def edit_dose_command(self):
         try:
@@ -106,7 +110,7 @@ class ViewDosesForm(ViewDataForm):
         super().__init__(master, data)
 
         self.add_button['command'] = self.add_dose_command
-        self.clear_button['command'] = self.clear
+        self.clear_button['command'] = lambda: self.clear(True)
         self.edit_button['command'] = self.edit_dose_command
         self.delete_button['command'] = self.delete_dose_command
         self.static_label_A['text'] = "Citizen: "

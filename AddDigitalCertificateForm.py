@@ -46,3 +46,5 @@ class AddDigitalCertificateForm(AddEditDataForm):
 
         self.save_button['command'] = self.command_add
         self.cancle_button['command'] = self.destroy
+
+        self.cancle = True

@@ -37,9 +37,13 @@ class ViewCitizenForm(ViewDataForm):
         self.dynamic_label_E['text'] = ""
         self.dynamic_label_F['text'] = ""
 
-    def clear(self):
+    def clear(self, disable=False):
         self.clear_labels()
         self.listbox.selection_clear(0, tk.END)
+
+        if disable:
+            self.edit_button['state'] = tk.DISABLED
+            self.delete_button['state'] = tk.DISABLED
 
     def listbox_change(self, event=None):
         if not self.listbox.curselection():
@@ -101,7 +105,7 @@ class ViewCitizenForm(ViewDataForm):
         self.data.delete_citizen(citizen.id)
         self.fill_listbox()
         self.data.save_data()
-        self.clear()
+        self.clear(True)
 
     def show_button_command(self):
         index = self.listbox.curselection()[0]
@@ -116,7 +120,7 @@ class ViewCitizenForm(ViewDataForm):
 
         self.add_button['command'] = self.add_citizen_command
         self.show_button['command'] = self.show_button_command
-        self.clear_button['command'] = self.clear
+        self.clear_button['command'] = lambda: self.clear(True)
         self.delete_button['command'] = self.delete_citizen_command
         self.edit_button['command'] = self.edit_citizen_command
         self.static_label_A['text'] = "Name: "

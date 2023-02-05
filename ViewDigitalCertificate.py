@@ -34,9 +34,13 @@ class ViewDigitalCertifiacteForm(ViewDataForm):
         self.dynamic_label_E['text'] = ""
         self.dynamic_label_F['text'] = ""
 
-    def clear(self):
+    def clear(self, disable=False):
         self.clear_labels()
         self.listbox.selection_clear(0, tk.END)
+
+        if disable:
+            self.edit_button['state'] = tk.DISABLED
+            self.delete_button['state'] = tk.DISABLED
 
     def listbox_change(self, event=None):
         if not self.listbox.curselection():
@@ -59,7 +63,7 @@ class ViewDigitalCertifiacteForm(ViewDataForm):
         self.data.delete_digital_certificate(digital_certificate.id)
         self.fill_listbox()
         self.data.save_data()
-        self.clear()
+        self.clear(True)
 
     def add_digital_certificate_command(self):
         form = AddDigitalCertificateForm(self, self.data)
@@ -102,7 +106,7 @@ class ViewDigitalCertifiacteForm(ViewDataForm):
     def __init__(self, master, data, by_citizen=None) -> None:
         super().__init__(master, data)
 
-        self.clear_button['command'] = self.clear
+        self.clear_button['command'] = lambda: self.clear(True)
         self.edit_button['command'] = self.edit_digital_certificate_command
         self.add_button['command'] = self.add_digital_certificate_command
         self.delete_button['command'] = self.delete_digital_certificate_command

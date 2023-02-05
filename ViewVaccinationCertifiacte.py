@@ -38,9 +38,13 @@ class ViewVaccinationCertificateForm(ViewDataForm):
         self.dynamic_label_E['text'] = ""
         self.dynamic_label_F['text'] = ""
 
-    def clear(self):
+    def clear(self, disable=False):
         self.clear_labels()
         self.listbox.selection_clear(0, tk.END)
+
+        if disable:
+            self.edit_button['state'] = tk.DISABLED
+            self.delete_button['state'] = tk.DISABLED
 
     def listbox_change(self, event=None):
         if not self.listbox.curselection():
@@ -105,12 +109,12 @@ class ViewVaccinationCertificateForm(ViewDataForm):
         self.data.delete_vaccination_certificate(vaccination_certificate.id)
         self.fill_listbox()
         self.data.save_data()
-        self.clear()
+        self.clear(True)
 
     def __init__(self, master, data) -> None:
         super().__init__(master, data)
 
-        self.clear_button['command'] = self.clear
+        self.clear_button['command'] = lambda: self.clear(True)
         self.edit_button['command'] = self.edit_vaccination_certificate_command
         self.add_button['command'] = self.add_vaccination_certificate_command
         self.delete_button['command'] = self.delete_vaccination_certificate_command

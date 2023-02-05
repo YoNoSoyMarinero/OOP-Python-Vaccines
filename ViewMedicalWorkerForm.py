@@ -52,9 +52,12 @@ class ViewMedicalWorkerForm(ViewDataForm):
             self.listbox.insert(tk.END, medical_worker.name +
                                 " " + medical_worker.surname)
 
-    def clear(self):
+    def clear(self, disable=False):
         self.clear_labels()
         self.listbox.selection_clear(0, tk.END)
+        if disable:
+            self.edit_button['state'] = tk.DISABLED
+            self.delete_button['state'] = tk.DISABLED
 
     def add_medical_worker_command(self):
         form = AddMedicalWorkerForm(self, self.data)
@@ -101,12 +104,12 @@ class ViewMedicalWorkerForm(ViewDataForm):
         self.data.delete_medical_worker(medical_worker.id)
         self.fill_listbox()
         self.data.save_data()
-        self.clear()
+        self.clear(True)
 
     def __init__(self, master, data: Data) -> None:
         super().__init__(master, data)
 
-        self.clear_button['command'] = self.clear
+        self.clear_button['command'] = lambda: self.clear(True)
         self.delete_button['command'] = self.delete_medical_worker_command
         self.add_button['command'] = self.add_medical_worker_command
         self.edit_button['command'] = self.edit_medical_worker_command

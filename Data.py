@@ -103,6 +103,8 @@ class Data:
     def add_dose(self, dose):
         dose.id = self.global_id
         self.global_id += 1
+        self.citizens[self.find_index_for_deletion(self.citizens,
+                                                   dose.citizen.id)].add_dose(dose)
         self.doses.append(dose)
 
     def delete_dose(self, id):
@@ -124,6 +126,8 @@ class Data:
     def add_vaccination_certificate(self, vaccination_certificate):
         vaccination_certificate.id = self.global_id
         self.global_id += 1
+        self.citizens[self.find_index_for_deletion(self.citizens,
+                                                   vaccination_certificate.citizen.id)].add_vaccination_certificate(vaccination_certificate)
         self.vaccination_certificates.append(vaccination_certificate)
 
     def delete_vaccination_certificate(self, id):
@@ -146,6 +150,8 @@ class Data:
     def add_digital_certificate(self, digital_certificate):
         digital_certificate.id = self.global_id
         self.global_id += 1
+        self.citizens[self.find_index_for_deletion(
+            self.citizens, digital_certificate.citizen.id)].digital_certificate = digital_certificate
         self.digital_certificates.append(digital_certificate)
 
     def delete_digital_certificate(self, id):
